@@ -37,8 +37,8 @@ For maven-based projects, add the following to your `pom.xml`:
 
 ## TODO
 
-* Web-safe colors
-* Spectral colors
+* ~~Web-safe colors~~
+* ~~Spectral colors~~
 * IColor protocol
 
 ## Known Bugs

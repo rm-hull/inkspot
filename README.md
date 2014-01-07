@@ -39,7 +39,7 @@ For maven-based projects, add the following to your `pom.xml`:
 
 * ~~Web-safe colors~~
 * ~~Spectral colors~~
-* IColor protocol
+* ~~IColor protocol~~
 
 ## Known Bugs
 

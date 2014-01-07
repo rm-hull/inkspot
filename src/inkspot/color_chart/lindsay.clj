@@ -547,5 +547,3 @@
     :grey98 "#FAFAFA"
     :grey99 "#FCFCFC"
     :grey100 "#FFFFFF"))
-
-(println swatch)

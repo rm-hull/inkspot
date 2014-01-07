@@ -1,5 +1,6 @@
 (ns inkspot.color-chart
-  (require [inkspot.spectrum :as spectrum]))
+  (require [inkspot.spectrum :as spectrum]
+           [inkspot.color :as color]))
 
 (def web-safe-colors [
   "#990033" "#FF3366" "#CC0033" "#FF0033" "#FF9999" "#CC3366" "#FFCCFF" "#CC6698"
@@ -42,15 +43,17 @@
   (let [f1 420 ; Red = 420 THz
         f2 750 ; Indigo = 750 THz
         step (double (/ (- f2 f1) num-colors))]
-    (->> (iterate (partial + step) f1)
-         (map (comp spectrum/rgb spectrum/frequency-color))
-         (take num-colors)
-         vec)))
+    (->>
+      (iterate (partial + step) f1)
+      (map (comp color/gamma spectrum/frequency-color))
+      (take num-colors)
+      (vec))))
 
 (defn rainbow [num-colors]
-  (letfn [(color [idx]
-            { :r 1
-              :g (Math/sin (/ (* 3 idx) num-colors))
-              :b (double (/ idx num-colors)) })]
-    (->> (range num-colors)
-         (mapv (comp spectrum/rgb color)))))
+  (letfn [(c [idx]
+            { :red   1.0
+              :green (Math/sin (/ (* 3 idx) num-colors))
+              :blue  (double (/ idx num-colors)) })]
+    (->>
+      (range num-colors)
+      (mapv (comp color/gamma c)))))

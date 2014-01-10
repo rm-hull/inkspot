@@ -4,8 +4,8 @@
   :license {:name "The MIT License (MIT)"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-2120"]]
-  :plugins [[lein-cljsbuild "0.3.4"]
+                 [org.clojure/clojurescript "0.0-2134"]]
+  :plugins [[lein-cljsbuild "1.0.1"]
             [com.birdseye-sw/lein-dalap "0.1.0"]]
   :hooks [leiningen.dalap]
   :source-paths ["src" "target/generated-src"]
@@ -24,5 +24,5 @@
           :static-fns true
           ;:optimizations :advanced
           :pretty-print true }}}}
-  :min-lein-version "2.3.2"
+  :min-lein-version "2.3.4"
   :global-vars {*warn-on-reflection* true})

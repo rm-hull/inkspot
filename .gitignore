@@ -5,4 +5,5 @@ pom.xml
 /target/
 .lein-deps-sum
 .lein-repl-history
+.lein-failures
 .nrepl-port

@@ -31,13 +31,30 @@
   "#FF3333" "#CC3333" "#FF6666" "#660000" "#990000" "#CC0000" "#FF0000" "#FF3300"
   "#CC9966" "#FFCC99" "#FFFFFF" "#CCCCCC" "#999999" "#666666" "#333333" "#000000" ])
 
-(defn color-seq [coll n start step]
+(defn color-seq
+  "Take at most n colors from the given color swatch, cycle through them
+   repeatedly and lazily, starting from the start offset, stepping over
+   step in each yield."
+  [colors n start step]
   (->>
-    (cycle coll)
+    (cycle colors)
     (drop start)
     (take-nth step)
     (take n)
     (cycle)))
+
+(defn color-mapper
+  "Return a function which accepts a single numeric argument in the range
+   low (inclusive) to high (exclusive): the generated function will return
+   a color from the given swatch which approximately maps (in a linear sense)
+   argument in the low..high range.
+
+   Do not use with infinite sequences."
+  [colors low high]
+  (let [g (/ (- high low) (count colors))
+        v (vec colors)]
+    (fn [n]
+      (get v (int (/ (- n low) g))))))
 
 (defn spectrum [num-colors]
   (let [f1 420 ; Red = 420 THz
@@ -45,7 +62,7 @@
         step (double (/ (- f2 f1) num-colors))]
     (->>
       (iterate (partial + step) f1)
-      (map (comp color/gamma spectrum/frequency-color))
+      (map (comp color/coerce color/gamma spectrum/frequency-color))
       (take num-colors)
       (vec))))
 
@@ -56,4 +73,4 @@
               :blue  (double (/ idx num-colors)) })]
     (->>
       (range num-colors)
-      (mapv (comp color/gamma c)))))
+      (mapv (comp color/coerce color/gamma c)))))

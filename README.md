@@ -40,6 +40,8 @@ For maven-based projects, add the following to your `pom.xml`:
 * ~~Web-safe colors~~
 * ~~Spectral colors~~
 * ~~IColor protocol~~
+* Color mapper function - given a numerical range and a color swatch, maps numerical input to the range of colors
+* Color averaging/mixing
 
 ## Known Bugs
 

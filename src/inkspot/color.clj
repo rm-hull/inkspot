@@ -28,9 +28,9 @@
   [color]
   ^{:cljs '(rgba color)}
   (Color.
-    (red color)
-    (green color)
-    (blue color)
+    (int (red color))
+    (int (green color))
+    (int (blue color))
     (int (* (alpha color) 255))))
 
 (defn rgb

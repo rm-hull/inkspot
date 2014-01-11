@@ -16,7 +16,7 @@ To build and install the library locally, run:
 
 ### Including in your project
 
-There _will be_ a version hosted at [Clojars](https://clojars.org/rm-hull/wireframes) soon.
+There is version hosted at [Clojars](https://clojars.org/rm-hull/wireframes).
 For leiningen include a dependency:
 
 ```clojure

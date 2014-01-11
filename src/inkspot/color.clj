@@ -124,7 +124,7 @@
   [ (* weight (red color))
     (* weight (green color))
     (* weight (blue color))
-    (* weight (alpha color))])
+    (alpha color)])
 
 (defn mix
   "Mix the colors in RGB space in the proportions given, else if

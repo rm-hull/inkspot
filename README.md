@@ -159,6 +159,7 @@ For example,
 ## References
 
 * http://catless.ncl.ac.uk/Lindsay/swatch0.html
+* http://www.lynda.com/resources/hexpalette/hue.html
 
 ## License
 

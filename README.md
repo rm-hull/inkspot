@@ -88,7 +88,7 @@ There are a number of built-in swatches which can be used,
 
 These palettes were generated with the following example
 
-```
+```clojure
 (ns inkspot.examples
   (require [clojure.java.io :as io]
            [inkspot.color-chart :as cc]
@@ -106,6 +106,39 @@ These palettes were generated with the following example
 
 ```
 
+### Mixing Colors
+TODO
+
+### Cycling Colors
+TODO
+
+### Linear mapping across numeric ranges
+
+A color swatch can be mapped to a specific range of numbers (integer or floating
+point), where for each given input in the range, the nearest color is selected.
+For example,
+
+```clojure
+(use 'inkspot.color-chart)
+
+(def colors
+  (color-mapper
+    (spectrum 48)
+    100 250))
+
+(colors 100) ; lower bound is inclusive
+=> #<Color java.awt.Color[r=224,g=0,b=0]>
+
+(colors 249.99)
+=> #<Color java.awt.Color[r=110,g=0,b=180]>
+
+(colors 250) ; upper bound is exclusive
+=> nil
+
+(color 43) ; outside range
+=> nil
+```
+
 ## TODO
 
 * ~~Web-safe colors~~
@@ -114,6 +147,7 @@ These palettes were generated with the following example
 * ~~Color mapper function - given a numerical range and a color swatch, maps numerical input to the range of colors~~
 * ~~Color averaging/mixing~~
 * Create ~~PNG~~ & SVG swatch representations
+* Logarithmic color mapper function
 
 ## Known Bugs
 

@@ -1,6 +1,7 @@
 (ns inkspot.color
-  (:require [clojure.string :as string])
-  (:use [inkspot.common :only [parse-int parse-double]])
+  (:require [clojure.string :as string]
+            [inkspot.common :refer [parse-int parse-double]]
+            [inkspot.color-chart.lindsay :as lindsay])
   ^:clj
   (:import [java.awt Color]))
 
@@ -73,6 +74,10 @@
     #"rgb\((.*),(.*),(.*)\)" :>> color-vec
     #"rgba\((.*),(.*),(.*),(.*)\)" :>> color-vec))
 
+(defn keyword->color [k]
+  (when-let [v (lindsay/swatch k)]
+    (coerce v)))
+
 (extend-type ^{:cljs cljs.core.PersistentVector} clojure.lang.PersistentVector
   IColor
   (red    [[r _ _ _]] r)
@@ -87,7 +92,7 @@
   (green  [n] (green (int->color n)))
   (blue   [n] (blue (int->color n)))
   (alpha  [n] (alpha (int->color n)))
-  (coerce [n] (to-color n)))
+  (coerce [n] (int->color n)))
 
 (extend-type java.lang.String
   IColor
@@ -95,7 +100,15 @@
   (green  [s] (green (string->color s)))
   (blue   [s] (blue (string->color s)))
   (alpha  [s] (alpha (string->color s)))
-  (coerce [s] (to-color s)))
+  (coerce [s] (string->color s)))
+
+(extend-type clojure.lang.Keyword
+  IColor
+  (red    [s] (red (keyword->color s)))
+  (green  [s] (green (keyword->color s)))
+  (blue   [s] (blue (keyword->color s)))
+  (alpha  [s] (alpha (keyword->color s)))
+  (coerce [s] (keyword->color s)))
 
 ^:clj
 (extend-type java.awt.Color

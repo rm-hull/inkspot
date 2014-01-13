@@ -86,6 +86,7 @@ There are a number of built-in swatches which can be used,
 | color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
 | color-chart.cc/gradient :orange :blue 216 | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient1.png) |
+| color-chart.cc/gradient :red :snow 216 | ![gradient2](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient2.png) |
 
 These palettes were generated with the following
 [example](https://github.com/rm-hull/inkspot/blob/master/example/example.clj):

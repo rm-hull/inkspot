@@ -35,6 +35,77 @@ For maven-based projects, add the following to your `pom.xml`:
 
 ## Basic Usage
 
+A cross-platform ```IColor``` protocol has been overlaid on several common
+color representations. For example, in Clojure:
+
+```clojure
+(color/coerce 0xFF0000)
+=> #<Color java.awt.Color[r=255,g=0,b=0]>
+
+(color/coerce "#00FF00")
+=> #<Color java.awt.Color[r=0,g=255,b=0]>
+
+(color/coerce "rgb(0,0,255)")
+=> #<Color java.awt.Color[r=0,g=0,b=255]>
+
+(color/coerce java.awt.Color/MAGENTA)
+=> #<Color java.awt.Color[r=255,g=0,b=255]>
+
+(color/coerce [255 255 0])
+=> #<Color java.awt.Color[r=255,g=255,b=0]>
+```
+
+Specifying the color by keyword is also possible, with unknown colors returning
+```nil``` as might be expected. The full list of supported color names can be
+found [here](https://github.com/rm-hull/inkspot/blob/master/src/inkspot/color_chart/lindsay.clj).
+
+```clojure
+(color/coerce :bisque)
+=> #<Color java.awt.Color[r=255,g=228,b=196]>
+
+(color/coerce :none-existent-color)
+=> nil
+```
+
+For ClojureScript, the same calls would instead yield a string representation,
+thus:
+
+```clojure
+(color/coerce :bisque)
+=> "rgba(255,228,196,1.0)"
+```
+
+### Built-in color swatches
+
+There are a number of built-in swatches which can be used,
+
+| Function | Color Palette |
+|:---------|:------|
+| color-chart/web-safe-colors | ![Web-safe](https://raw.github.com/rm-hull/inkspot/master/example/palette/web-safe-colors.png) |
+| color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/spectrum.png) |
+| color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
+| color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
+
+These palettes were generated with the following example
+
+```
+(ns inkspot.examples
+  (require [clojure.java.io :as io]
+           [inkspot.color-chart :as cc]
+           [inkspot.color-chart.lindsay :as lindsay])
+  (import [javax.imageio ImageIO]))
+
+(let [palettes {
+        :web-safe-colors cc/web-safe-colors
+        :spectrum        (cc/spectrum 216)
+        :rainbow         (cc/rainbow 216)
+        :lindsay         (vals lindsay/swatch)}]
+  (doseq [[k v] palettes
+        :let [f (io/file (str "example/palette/" (name k) ".png"))]]
+    (ImageIO/write (cc/create-palette v) "png" f)))
+
+```
+
 ## TODO
 
 * ~~Web-safe colors~~
@@ -42,8 +113,11 @@ For maven-based projects, add the following to your `pom.xml`:
 * ~~IColor protocol~~
 * ~~Color mapper function - given a numerical range and a color swatch, maps numerical input to the range of colors~~
 * ~~Color averaging/mixing~~
+* Create ~~PNG~~ & SVG swatch representations
 
 ## Known Bugs
+
+* CLJS files not generating properly
 
 ## References
 

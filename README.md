@@ -150,6 +150,7 @@ For example,
 * Create ~~PNG~~ & SVG swatch representations
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
+* Gradient interpolation
 
 ## Known Bugs
 

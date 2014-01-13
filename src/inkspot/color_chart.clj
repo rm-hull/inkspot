@@ -124,8 +124,25 @@
       (.setBackground Color/WHITE)
       (.clearRect 0 0 width height))
 
-    (doseq [[color x y] generator]
-      (draw-cell g2d x y (dec cell-size) (color/coerce color)))
+    (doseq [[c x y] generator]
+      (draw-cell g2d x y (dec cell-size) (color/coerce c)))
 
     (.dispose g2d)
     img))
+
+(defn- xrange [start end num-steps]
+  (let [diff (- end start)
+        step (/ diff num-steps)]
+    (if (zero? diff)
+      (repeat num-steps start)
+      (range start end step))))
+
+(defn gradient [from-color to-color num-colors]
+  (let [a (color/coerce from-color)
+        b (color/coerce to-color)
+        reds   (xrange (color/red a) (color/red b) num-colors)
+        greens (xrange (color/green a) (color/green b) num-colors)
+        blues  (xrange (color/blue a) (color/blue b) num-colors)
+        alphas (xrange (color/alpha a) (color/alpha b) num-colors)]
+    (map (comp color/coerce vector) reds greens blues alphas)))
+

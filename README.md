@@ -85,6 +85,7 @@ There are a number of built-in swatches which can be used,
 | color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/spectrum.png) |
 | color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
+| color-chart.cc/gradient :orange :blue 216 | | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient1.png) |
 
 These palettes were generated with the following
 [example](https://github.com/rm-hull/inkspot/blob/master/example/example.clj):
@@ -92,19 +93,20 @@ These palettes were generated with the following
 ```clojure
 (ns inkspot.examples
   (require [clojure.java.io :as io]
+           [inkspot.color :as color]
            [inkspot.color-chart :as cc]
            [inkspot.color-chart.lindsay :as lindsay])
   (import [javax.imageio ImageIO]))
 
 (let [palettes {
-        :web-safe-colors cc/web-safe-colors
+        :web-safe-colors (map color/coerce cc/web-safe-colors)
         :spectrum        (cc/spectrum 216)
         :rainbow         (cc/rainbow 216)
-        :lindsay         (vals lindsay/swatch)}]
+        :lindsay         (map color/coerce (vals lindsay/swatch))
+        :gradient1       (cc/gradient :orange :blue 216)}]
   (doseq [[k v] palettes
         :let [f (io/file (str "example/palette/" (name k) ".png"))]]
     (ImageIO/write (cc/create-palette v) "png" f)))
-
 ```
 
 ### Mixing Colors
@@ -150,7 +152,7 @@ For example,
 * Create ~~PNG~~ & SVG swatch representations
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
-* Gradient interpolation
+* Gradient interpolation: Use HSV values rather than RGB interpolation?
 
 ## Known Bugs
 

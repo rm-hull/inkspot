@@ -86,7 +86,8 @@ There are a number of built-in swatches which can be used,
 | color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
 
-These palettes were generated with the following example
+These palettes were generated with the following
+[example](https://github.com/rm-hull/inkspot/blob/master/example/example.clj):
 
 ```clojure
 (ns inkspot.examples
@@ -148,6 +149,7 @@ For example,
 * ~~Color averaging/mixing~~
 * Create ~~PNG~~ & SVG swatch representations
 * Logarithmic color mapper function
+* Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
 
 ## Known Bugs
 

@@ -1,6 +1,10 @@
 (ns inkspot.color-chart
   (require [inkspot.spectrum :as spectrum]
-           [inkspot.color :as color]))
+           [inkspot.color :as color])
+  ^:clj
+  (:import [java.awt.image BufferedImage]
+           [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
+           [java.awt Color Graphics2D RenderingHints BasicStroke GraphicsEnvironment]))
 
 (def web-safe-colors [
   "#990033" "#FF3366" "#CC0033" "#FF0033" "#FF9999" "#CC3366" "#FFCCFF" "#CC6698"
@@ -74,3 +78,54 @@
     (->>
       (range num-colors)
       (mapv (comp color/coerce color/gamma c)))))
+
+(defn- ^BufferedImage create-image [w h]
+  (if (GraphicsEnvironment/isHeadless)
+    (BufferedImage. w h BufferedImage/TYPE_INT_ARGB)
+    (.createCompatibleImage
+       (.getDefaultConfiguration
+         (.getDefaultScreenDevice
+           (GraphicsEnvironment/getLocalGraphicsEnvironment)))
+       w h)))
+
+^:clj
+(defn- ^Graphics2D create-graphics [^BufferedImage img]
+  (let [g2d (.createGraphics img)]
+    (doto g2d
+      (.setRenderingHint RenderingHints/KEY_STROKE_CONTROL RenderingHints/VALUE_STROKE_NORMALIZE)
+      (.setRenderingHint RenderingHints/KEY_ANTIALIASING RenderingHints/VALUE_ANTIALIAS_ON)
+      (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY))
+    g2d))
+
+^:clj
+(defn draw-cell [^Graphics2D g2d x y size color]
+  (doto g2d
+    (.setColor color)
+    (.fillRect x y size size))
+  g2d)
+
+^:clj
+(defn create-palette
+  [color-swatch & {:keys [cell-size cells-per-row]
+                   :or   {cell-size 10 cells-per-row 48}}]
+  (let [num-cells (count color-swatch)
+        width     (* cell-size cells-per-row)
+        height    (* cell-size (Math/ceil (/ num-cells cells-per-row)))
+        pos       (fn [i] [(* cell-size (mod i cells-per-row))
+                           (* cell-size (quot i cells-per-row))])
+        generator (->>
+                    (iterate inc 0)
+                    (map pos)
+                    (map cons color-swatch))
+        img       (create-image width height)
+        g2d       (create-graphics img)]
+
+    (doto g2d
+      (.setBackground Color/WHITE)
+      (.clearRect 0 0 width height))
+
+    (doseq [[color x y] generator]
+      (draw-cell g2d x y (dec cell-size) (color/coerce color)))
+
+    (.dispose g2d)
+    img))

@@ -68,15 +68,16 @@
         (cons (mod n 256) ret)
         (quot n 256)))))
 
-(defn string->color [s]
+(defn string->color
+  "Construct a tuple of RGB elements from a string."
+  [s]
   (condp re-matches s
     #"#(.*)" :>> color-vec
     #"rgb\((.*),(.*),(.*)\)" :>> color-vec
     #"rgba\((.*),(.*),(.*),(.*)\)" :>> color-vec))
 
 (defn keyword->color [k]
-  (when-let [v (lindsay/swatch k)]
-    (coerce v)))
+  (lindsay/swatch k))
 
 (extend-type ^{:cljs cljs.core.PersistentVector} clojure.lang.PersistentVector
   IColor
@@ -92,7 +93,7 @@
   (green  [n] (green (int->color n)))
   (blue   [n] (blue (int->color n)))
   (alpha  [n] (alpha (int->color n)))
-  (coerce [n] (int->color n)))
+  (coerce [n] (to-color (int->color n))))
 
 (extend-type java.lang.String
   IColor
@@ -102,13 +103,21 @@
   (alpha  [s] (alpha (string->color s)))
   (coerce [s] (to-color (string->color s))))
 
+(extend-type nil
+  IColor
+  (red    [s] nil)
+  (green  [s] nil)
+  (blue   [s] nil)
+  (alpha  [s] nil)
+  (coerce [s] nil))
+
 (extend-type clojure.lang.Keyword
   IColor
   (red    [s] (red (keyword->color s)))
   (green  [s] (green (keyword->color s)))
   (blue   [s] (blue (keyword->color s)))
   (alpha  [s] (alpha (keyword->color s)))
-  (coerce [s] (keyword->color s)))
+  (coerce [s] (to-color (keyword->color s))))
 
 ^:clj
 (extend-type java.awt.Color

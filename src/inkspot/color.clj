@@ -100,7 +100,7 @@
   (green  [s] (green (string->color s)))
   (blue   [s] (blue (string->color s)))
   (alpha  [s] (alpha (string->color s)))
-  (coerce [s] (string->color s)))
+  (coerce [s] (to-color (string->color s))))
 
 (extend-type clojure.lang.Keyword
   IColor

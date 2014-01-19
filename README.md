@@ -57,10 +57,16 @@ color representations. For example, in Clojure:
 
 Specifying the color by keyword is also possible, with unknown colors returning
 ```nil``` as might be expected. The full list of supported color names can be
-found [here](https://github.com/rm-hull/inkspot/blob/master/src/inkspot/color_chart/lindsay.clj).
+found in the [lindsay](https://github.com/rm-hull/inkspot/blob/master/src/inkspot/color_chart/lindsay.clj)
+and [X11](https://github.com/rm-hull/inkspot/blob/master/src/inkspot/color_chart/x11.clj) files.
+*Notes:* (1) The lindsay list is checked first, and if the color name is not present,
+it is then checked for in the X11 list. (2) the coerce lookup is case insensitive.
 
 ```clojure
 (color/coerce :bisque)
+=> #<Color java.awt.Color[r=255,g=228,b=196]>
+
+(color/coerce :BISQUE)
 => #<Color java.awt.Color[r=255,g=228,b=196]>
 
 (color/coerce :none-existent-color)
@@ -85,6 +91,7 @@ There are a number of built-in swatches which can be used,
 | color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/spectrum.png) |
 | color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
+| color-chart.x11/swatch | ![X11](https://raw.github.com/rm-hull/inkspot/master/example/palette/x11.png) |
 | color-chart.cc/gradient :orange :blue 216 | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient1.png) |
 | color-chart.cc/gradient :red :snow 216 | ![gradient2](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient2.png) |
 
@@ -155,6 +162,7 @@ For example,
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
 * Gradient interpolation: Use HSV values rather than RGB interpolation?
 * RGB, HSV, YIQ conversions
+* X11 Color names
 
 ## Known Bugs
 
@@ -165,6 +173,7 @@ For example,
 * http://catless.ncl.ac.uk/Lindsay/swatch0.html
 * http://www.lynda.com/resources/hexpalette/hue.html
 * https://github.com/xav/Grapefruit
+* http://www.mcfedries.com/books/cightml/x11color.htm
 
 ## License
 

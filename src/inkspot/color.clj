@@ -1,7 +1,8 @@
 (ns inkspot.color
   (:require [clojure.string :as string]
             [inkspot.common :refer [parse-int parse-double]]
-            [inkspot.color-chart.lindsay :as lindsay])
+            [inkspot.color-chart.lindsay :as lindsay]
+            [inkspot.color-chart.x11 :as x11])
   ^:clj
   (:import [java.awt Color]))
 
@@ -77,7 +78,10 @@
     #"rgba\((.*),(.*),(.*),(.*)\)" :>> color-vec))
 
 (defn keyword->color [k]
-  (lindsay/swatch k))
+  (let [k (-> k name clojure.string/lower-case keyword)]
+    (or
+      (lindsay/swatch k)
+      (x11/swatch k))))
 
 (extend-type ^{:cljs cljs.core.PersistentVector} clojure.lang.PersistentVector
   IColor

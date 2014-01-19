@@ -187,7 +187,7 @@ returned as vector of 3 elements.
 
 ## Known Bugs
 
-* CLJS files not generating properly
+* ~~CLJS files not generating properly~~
 
 ## References
 

@@ -1,6 +1,6 @@
 (ns inkspot.color-chart
-  (require [inkspot.spectrum :as spectrum]
-           [inkspot.color :as color])
+  (:require [inkspot.spectrum :as spectrum]
+            [inkspot.color :as color])
   ^:clj
   (:import [java.awt.image BufferedImage]
            [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
@@ -79,6 +79,7 @@
       (range num-colors)
       (mapv (comp color/coerce color/gamma c)))))
 
+^:clj
 (defn- ^BufferedImage create-image [w h]
   (if (GraphicsEnvironment/isHeadless)
     (BufferedImage. w h BufferedImage/TYPE_INT_ARGB)
@@ -145,4 +146,3 @@
         blues  (xrange (color/blue a) (color/blue b) num-colors)
         alphas (xrange (color/alpha a) (color/alpha b) num-colors)]
     (map (comp color/coerce vector) reds greens blues alphas)))
-

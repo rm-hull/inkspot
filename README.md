@@ -1,6 +1,6 @@
 # Inkspot [![Build Status](https://secure.travis-ci.org/rm-hull/inkspot.png)](http://travis-ci.org/rm-hull/inkspot)
 
-A small Clojure/ClojureScript library for creating colour swatches
+A small Clojure/ClojureScript library for creating colour swatches and converting between colorspaces.
 
 ### Pre-requisites
 
@@ -150,6 +150,26 @@ For example,
 => nil
 ```
 
+### Converting IColor instances to other colorspaces and back
+
+The ```inkspot.converter``` namespace supports the following conversions to/from
+```IColor``` instances. In all cases the non-RGB colorspace results are always
+returned as vector of 3 elements.
+
+* [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) (Hue, Saturation, Value)
+* [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (Hue, Saturation, Luminosity)
+* [Y'UV](https://en.wikipedia.org/wiki/YUV) (Luma, Chrominance as used in PAL video standards)
+
+```clojure
+(use 'inkspot.converter)
+
+(rgb->hsv :yellow)
+=> [60.0 1.0 1.0]
+
+(hsv->rgb [60.0 1.0 1.0])
+=> #<Color java.awt.Color[r=255,g=255,b=0]>
+```
+
 ## TODO
 
 * ~~Web-safe colors~~
@@ -161,8 +181,9 @@ For example,
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
 * Gradient interpolation: Use HSV values rather than RGB interpolation?
-* RGB, HSV, YIQ conversions
-* X11 Color names
+* ~~RGB, HSV, HSL, YUV, ~~ YIQ colorspace conversions
+* ~~X11 Color names~~
+* Monochrome/triadic/tetradic schemes
 
 ## Known Bugs
 

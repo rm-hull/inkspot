@@ -154,6 +154,7 @@ For example,
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
 * Gradient interpolation: Use HSV values rather than RGB interpolation?
+* RGB, HSV, YIQ conversions
 
 ## Known Bugs
 
@@ -163,6 +164,7 @@ For example,
 
 * http://catless.ncl.ac.uk/Lindsay/swatch0.html
 * http://www.lynda.com/resources/hexpalette/hue.html
+* https://github.com/xav/Grapefruit
 
 ## License
 

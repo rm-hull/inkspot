@@ -25,7 +25,9 @@
     (coerce [v v v])
     (let [h (mod (/ h 60) 6)
           i (int h)
-          f (if (even? i) (- 1 (- h i)) (- h i))
+          f (if (even? i)
+              (- 1 (- h i))
+              (- h i))
           v (* v 255.0)
           m (* v (- 1.0 s))
           n (* v (- 1.0 (* s f)))]

@@ -94,6 +94,8 @@ There are a number of built-in swatches which can be used,
 | color-chart.x11/swatch | ![X11](https://raw.github.com/rm-hull/inkspot/master/example/palette/x11.png) |
 | color-chart/gradient :orange :blue 216 | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient1.png) |
 | color-chart/gradient :red :snow 216 | ![gradient2](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient2.png) |
+| color-chart/heatmap 216 | ![heatmap](https://raw.github.com/rm-hull/inkspot/master/example/palette/heatmap.png) |
+
 
 These palettes were generated with the following
 [example](https://github.com/rm-hull/inkspot/blob/master/example/example.clj):
@@ -114,7 +116,8 @@ These palettes were generated with the following
         :lindsay         (map color/coerce (vals lindsay/swatch))
         :x11             (map color/coerce (vals x11/swatch))
         :gradient1       (cc/gradient :orange :blue 216)
-        :gradient2       (cc/gradient :red :snow 216)}]
+        :gradient2       (cc/gradient :red :snow 216)
+        :heatmap         (cc/heatmap 216)}]
   (doseq [[k v] palettes
         :let [f (io/file (str "example/palette/" (name k) ".png"))]]
     (ImageIO/write (cc/create-palette v) "png" f)))

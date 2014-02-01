@@ -146,3 +146,12 @@
         blues  (xrange (color/blue a) (color/blue b) num-colors)
         alphas (xrange (color/alpha a) (color/alpha b) num-colors)]
     (map (comp color/coerce vector) reds greens blues alphas)))
+
+(defn heatmap
+  "Blackbody radiation"
+  [num-colors]
+  (->>
+    [:black :red :orange :white]
+    (partition 2 1)
+    (map (comp #(conj % (quot num-colors 4)) vec))
+    (mapcat (partial apply gradient))))

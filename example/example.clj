@@ -13,7 +13,8 @@
         :lindsay         (map color/coerce (vals lindsay/swatch))
         :x11             (map color/coerce (vals x11/swatch))
         :gradient1       (cc/gradient :orange :blue 216)
-        :gradient2       (cc/gradient :red :snow 216)}]
+        :gradient2       (cc/gradient :red :snow 216)
+        :heatmap         (cc/heatmap 216)}]
   (doseq [[k v] palettes
         :let [f (io/file (str "example/palette/" (name k) ".png"))]]
     (ImageIO/write (cc/create-palette v) "png" f)))

@@ -153,5 +153,5 @@
   (->>
     [:black :red :orange :white]
     (partition 2 1)
-    (map (comp #(conj % (quot num-colors 4)) vec))
+    (map (comp #(conj % (quot num-colors 3)) vec))
     (mapcat (partial apply gradient))))

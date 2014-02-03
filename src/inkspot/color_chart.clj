@@ -151,7 +151,7 @@
   "Blackbody radiation"
   [num-colors]
   (->>
-    [:black :red :orange :white]
+    [:black :red :orange :yellow :white]
     (partition 2 1)
-    (map (comp #(conj % (quot num-colors 3)) vec))
+    (map (comp #(conj % (quot num-colors 4)) vec))
     (mapcat (partial apply gradient))))

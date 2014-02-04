@@ -6,10 +6,11 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2156"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
-  :plugins [[lein-cljsbuild "1.0.1"]
+  :plugins [[lein-cljsbuild "1.0.2"]
             [com.birdseye-sw/lein-dalap "0.1.0"]]
-  :hooks [leiningen.dalap]
-  :source-paths ["src" "target/generated-src"]
+  :hooks [leiningen.dalap
+          leiningen.cljsbuild]
+  :source-paths ["src"]
   :cljsbuild {
     :repl-listen-port 9000
     :repl-launch-commands

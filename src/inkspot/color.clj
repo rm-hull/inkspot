@@ -115,7 +115,7 @@
   (alpha  [s] nil)
   (coerce [s] nil))
 
-(extend-type clojure.lang.Keyword
+(extend-type ^{:cljs cljs.core.Keyword} clojure.lang.Keyword
   IColor
   (red    [s] (red (keyword->color s)))
   (green  [s] (green (keyword->color s)))

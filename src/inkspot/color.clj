@@ -28,7 +28,11 @@
    rgb values should be an integer in the 0-255 range,
    whilst alpha channel is a double in the range 0.0 - 1.0"
   [color]
-  ^{:cljs '(rgba color)}
+  ^{:cljs
+    '[(int (red color))
+      (int (green color))
+      (int (blue color))
+      (alpha color)]}
   (Color.
     (int (red color))
     (int (green color))
@@ -138,7 +142,7 @@
   (red   [[r _ _ _]] r)
   (green [[_ g _ _]] g)
   (blue  [[_ _ b _]] b)
-  (alpha [[_ _ _ a]] a))})
+  (alpha [[_ _ _ a]] (or a 1.0)))})
 
 (defn adjust-color [style & [color]]
   (let [color (or color "rgb(255,255,255)")

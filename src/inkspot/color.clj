@@ -18,9 +18,9 @@
   [color]
   (str
     "rgba("
-    (red   color) ","
-    (green color) ","
-    (blue  color) ","
+    (int (red   color)) ","
+    (int (green color)) ","
+    (int (blue  color)) ","
     (alpha color) ")"))
 
 (defn to-color

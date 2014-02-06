@@ -186,7 +186,7 @@ returned as vector of 3 elements.
 * Create ~~PNG~~ & SVG swatch representations
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
-* Gradient interpolation: Use HSV values rather than RGB interpolation?
+* ~~Gradient interpolation: Use HSV values rather than RGB interpolation?~~ not necessary
 * ~~RGB, HSV, HSL, YUV,~~ YIQ colorspace conversions
 * ~~X11 Color names~~
 * Monochrome/triadic/tetradic schemes

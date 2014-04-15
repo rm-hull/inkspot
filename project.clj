@@ -3,11 +3,11 @@
   :url "https://github.com/rm-hull/inkspot"
   :license {:name "The MIT License (MIT)"
             :url "http://opensource.org/licenses/MIT"}
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-2156"]
-                 [rm-hull/cljs-test "0.0.7"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/clojurescript "0.0-2202"]
+                 [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
-  :plugins [[lein-cljsbuild "1.0.2"]
+  :plugins [[lein-cljsbuild "1.0.3"]
             [com.birdseye-sw/lein-dalap "0.1.0"]]
   :hooks [leiningen.dalap
           leiningen.cljsbuild]

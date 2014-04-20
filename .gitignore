@@ -7,3 +7,4 @@ pom.xml
 .lein-repl-history
 .lein-failures
 .nrepl-port
+doc/api

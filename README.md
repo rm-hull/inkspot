@@ -35,6 +35,8 @@ For maven-based projects, add the following to your `pom.xml`:
 
 ## Basic Usage
 
+See the [API Documentation](http://rm-hull.github.io/inkspot).
+
 A cross-platform ```IColor``` protocol has been overlaid on several common
 color representations. For example, in Clojure:
 

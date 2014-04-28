@@ -6,7 +6,9 @@
            [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
            [java.awt Color Graphics2D RenderingHints BasicStroke GraphicsEnvironment]))
 
-(def web-safe-colors [
+(def web-safe-colors
+  "A swatch of web safe colours"
+  [
   "#990033" "#FF3366" "#CC0033" "#FF0033" "#FF9999" "#CC3366" "#FFCCFF" "#CC6698"
   "#993366" "#660033" "#CC3399" "#FF99CC" "#FF66CC" "#FF99FF" "#FF6699" "#CC0066"
   "#FF0066" "#FF3399" "#FF0099" "#FF33CC" "#FF00CC" "#FF66FF" "#FF33FF" "#FF00FF"
@@ -60,7 +62,10 @@
     (fn [n]
       (get v (int (/ (- n low) g))))))
 
-(defn spectrum [num-colors]
+(defn spectrum
+  "Yields a spectral range from Red (420 THz) to Indigo (750 THz) with
+   the given number of colours in between."
+  [num-colors]
   (let [f1 420 ; Red = 420 THz
         f2 750 ; Indigo = 750 THz
         step (double (/ (- f2 f1) num-colors))]
@@ -70,7 +75,11 @@
       (take num-colors)
       (vec))))
 
-(defn rainbow [num-colors]
+(defn rainbow
+  "Yields rainbow colors, although not entirely certain the formulas
+   are correct; cannot remember where this came from but dates to early
+   2000's..."
+  [num-colors]
   (letfn [(c [idx]
             { :red   1.0
               :green (Math/sin (/ (* 3 idx) num-colors))
@@ -99,7 +108,7 @@
     g2d))
 
 ^:clj
-(defn draw-cell [^Graphics2D g2d x y size color]
+(defn- draw-cell [^Graphics2D g2d x y size color]
   (doto g2d
     (.setColor color)
     (.fillRect x y size size))
@@ -107,6 +116,7 @@
 
 ^:clj
 (defn create-palette
+  "Creates a PNG representation of the supplied swatch"
   [color-swatch & {:keys [cell-size cells-per-row]
                    :or   {cell-size 10 cells-per-row 48}}]
   (let [num-cells (count color-swatch)
@@ -138,7 +148,10 @@
       (repeat num-steps start)
       (range start end step))))
 
-(defn gradient [from-color to-color num-colors]
+(defn gradient
+  "Linear gradient between two colours, with the given number of
+   graduations."
+  [from-color to-color num-colors]
   (let [a (color/coerce from-color)
         b (color/coerce to-color)
         reds   (xrange (color/red a) (color/red b) num-colors)
@@ -148,7 +161,8 @@
     (map (comp color/coerce vector) reds greens blues alphas)))
 
 (defn heatmap
-  "Blackbody radiation"
+  "Blackbody radiation (black, through red, orange, yellow to white),
+   with the given number of graduations."
   [num-colors]
   (->>
     [:black :red :orange :yellow :white]

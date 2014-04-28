@@ -1,7 +1,10 @@
 (ns inkspot.converter
+  "Converters between RGB space and other colour spaces, inspired
+   from python implementations from https://github.com/xav/Grapefruit"
   (:require [inkspot.color :refer [coerce red green blue]]))
 
 (defn rgb->hsv
+  "RGB to HSV (Hue, Saturation, Value) conversion."
   [color]
   (let [r (/ (red color) 255.0)
         g (/ (green color) 255.0)
@@ -20,6 +23,7 @@
         [h s v]))))
 
 (defn hsv->rgb
+  "HSV (Hue, Saturation, Value) to RGB conversion."
   [[h s v]]
   (if (zero? s)
     (coerce [v v v])
@@ -41,6 +45,7 @@
             [v m n])))))
 
 (defn rgb->hsl
+  "RGB to HSL (Hue, Saturation and Luminosity) conversion."
   [color]
   (let [r (/ (red color) 255.0)
         g (/ (green color) 255.0)
@@ -63,6 +68,7 @@
         [h s l]))))
 
 (defn hsl->rgb
+  "HSL (Hue, Saturation and Luminosity) to RGB conversion."
   [[h s l]]
   (if (zero? s)
     (coerce [l l l])   ; achromatic (gray)
@@ -83,6 +89,7 @@
       (coerce [r g b]))))
 
 (defn rgb->yuv
+  "RGB to Y'UV (Luma, Chrominance) Conversion."
   [color]
   (let [r (/ (red color) 255.0)
         g (/ (green color) 255.0)
@@ -93,17 +100,23 @@
     [y u v]))
 
 (defn yuv->rgb [[y u v]]
+  "Y'UV (Luma, Chrominance) to RGB Conversion."
   (let [r (* (+ y (* v 1.13983)) 255.0)
         g (* (- y (* u 0.39465) (* v 0.58060)) 255.0)
         b (* (+ y (* u 2.03211)) 255.0)]
     (coerce [r g b])))
 
 (defn grayscale
+  "RGB to greyscale conversion, largely by taking the Luma
+   value from Y'UV conversion."
   [color]
   (let [[y _ _] (map (partial * 255.0) (rgb->yuv color))]
     (coerce [y y y])))
 
 (defn complementary
+  "Complimentary color conversion, largely by taking the HSL
+   value, and rotating the Hue by 180 degrees, and then converting
+   back to RGB."
   [color]
   (let [[h s l] (rgb->hsl color)]
     (hsl->rgb [(mod (+ h 180) 360) s l])))

@@ -77,7 +77,10 @@
     #"rgb\((.*),(.*),(.*)\)" :>> color-vec
     #"rgba\((.*),(.*),(.*),(.*)\)" :>> color-vec))
 
-(defn keyword->color [k]
+(defn keyword->color
+  "Construct a tuple of RGB elements from a keyword. Uses the lindsay
+   and x11 swatches for color names (case insensitive)"
+  [k]
   (let [k (-> k name clojure.string/lower-case keyword)]
     (or
       (lindsay/swatch k)

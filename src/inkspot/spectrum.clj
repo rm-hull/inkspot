@@ -1,4 +1,6 @@
-(ns inkspot.spectrum)
+(ns inkspot.spectrum
+  "Formulas for calculating the color based on wavelength and frequency
+   of the visible spectrum.")
 
 (defn wavelength-color
   ([wavelength] (wavelength-color wavelength 1))

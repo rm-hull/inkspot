@@ -1,6 +1,5 @@
-(ns inkspot.color-chart.lindsay)
-
-; Derived from http://catless.ncl.ac.uk/Lindsay/swatchX.html [X = 0..8]
+(ns inkspot.color-chart.lindsay
+  "Derived from http://catless.ncl.ac.uk/Lindsay/swatch0.html")
 
 (def swatch
   (array-map

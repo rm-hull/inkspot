@@ -1,6 +1,5 @@
-(ns inkspot.color-chart.x11)
-
-; Derived from http://www.mcfedries.com/books/cightml/x11color.htm
+(ns inkspot.color-chart.x11
+  "Derived from http://www.mcfedries.com/books/cightml/x11color.htm")
 
 (def swatch
   (array-map

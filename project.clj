@@ -10,7 +10,7 @@
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
-    [codox "0.6.7"]
+    [codox "0.6.8"]
     [lein-cljsbuild "1.0.3"]
     [com.birdseye-sw/lein-dalap "0.1.0"]]
   :hooks [

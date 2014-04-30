@@ -192,6 +192,7 @@ returned as vector of 3 elements.
 * ~~RGB, HSV, HSL, YUV,~~ YIQ colorspace conversions
 * ~~X11 Color names~~
 * Monochrome/triadic/tetradic schemes
+* CubeHelix schemes
 
 ## Known Bugs
 
@@ -203,6 +204,7 @@ returned as vector of 3 elements.
 * http://www.lynda.com/resources/hexpalette/hue.html
 * https://github.com/xav/Grapefruit
 * http://www.mcfedries.com/books/cightml/x11color.htm
+* http://www.mrao.cam.ac.uk/~dag/CUBEHELIX/
 
 ## License
 

@@ -7,6 +7,8 @@
   :dependencies [
     [org.clojure/clojure "1.6.0"]
     [org.clojure/clojurescript "0.0-2202"]
+    [org.apache.xmlgraphics/batik-gvt "1.7"]
+    [org.apache.xmlgraphics/batik-svggen "1.7"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
@@ -15,7 +17,8 @@
     [com.birdseye-sw/lein-dalap "0.1.0"]]
   :hooks [
     leiningen.dalap
-    leiningen.cljsbuild]
+    ;leiningen.cljsbuild
+    ]
   :source-paths ["src"]
   :cljsbuild {
     :repl-listen-port 9000

@@ -107,11 +107,12 @@ These palettes were generated with the following
   (require [clojure.java.io :as io]
            [inkspot.color :as color]
            [inkspot.color-chart :as cc]
+           [inkspot.palette :as palette]
            [inkspot.color-chart.lindsay :as lindsay]
            [inkspot.color-chart.x11 :as x11])
   (import [javax.imageio ImageIO]))
 
-(let [palettes {
+(let [charts {
         :web-safe-colors (map color/coerce cc/web-safe-colors)
         :spectrum        (cc/spectrum 216)
         :rainbow         (cc/rainbow 216)
@@ -120,9 +121,9 @@ These palettes were generated with the following
         :gradient1       (cc/gradient :orange :blue 216)
         :gradient2       (cc/gradient :red :snow 216)
         :heatmap         (cc/heatmap 216)}]
-  (doseq [[k v] palettes
+  (doseq [[k v] charts
         :let [f (io/file (str "example/palette/" (name k) ".png"))]]
-    (ImageIO/write (cc/create-palette v) "png" f)))
+    (ImageIO/write (palette/draw v :g2d-target (palette/bitmap)) "png" f)))
 ```
 
 ### Mixing Colors
@@ -185,7 +186,7 @@ returned as vector of 3 elements.
 * ~~IColor protocol~~
 * ~~Color mapper function - given a numerical range and a color swatch, maps numerical input to the range of colors~~
 * ~~Color averaging/mixing~~
-* Create ~~PNG~~ & SVG swatch representations
+* ~~Create PNG & SVG swatch representations~~
 * Logarithmic color mapper function
 * Import LUT [maps](https://github.com/rm-hull/webrot/tree/master/resources/private/maps)
 * ~~Gradient interpolation: Use HSV values rather than RGB interpolation?~~ not necessary

@@ -88,59 +88,6 @@
       (range num-colors)
       (mapv (comp color/coerce color/gamma c)))))
 
-^:clj
-(defn- ^BufferedImage create-image [w h]
-  (if (GraphicsEnvironment/isHeadless)
-    (BufferedImage. w h BufferedImage/TYPE_INT_ARGB)
-    (.createCompatibleImage
-       (.getDefaultConfiguration
-         (.getDefaultScreenDevice
-           (GraphicsEnvironment/getLocalGraphicsEnvironment)))
-       w h)))
-
-^:clj
-(defn- ^Graphics2D create-graphics [^BufferedImage img]
-  (let [g2d (.createGraphics img)]
-    (doto g2d
-      (.setRenderingHint RenderingHints/KEY_STROKE_CONTROL RenderingHints/VALUE_STROKE_NORMALIZE)
-      (.setRenderingHint RenderingHints/KEY_ANTIALIASING RenderingHints/VALUE_ANTIALIAS_ON)
-      (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY))
-    g2d))
-
-^:clj
-(defn- draw-cell [^Graphics2D g2d x y size color]
-  (doto g2d
-    (.setColor color)
-    (.fillRect x y size size))
-  g2d)
-
-^:clj
-(defn create-palette
-  "Creates a PNG representation of the supplied swatch"
-  [color-swatch & {:keys [cell-size cells-per-row]
-                   :or   {cell-size 10 cells-per-row 48}}]
-  (let [num-cells (count color-swatch)
-        width     (* cell-size cells-per-row)
-        height    (* cell-size (Math/ceil (/ num-cells cells-per-row)))
-        pos       (fn [i] [(* cell-size (mod i cells-per-row))
-                           (* cell-size (quot i cells-per-row))])
-        generator (->>
-                    (iterate inc 0)
-                    (map pos)
-                    (map cons color-swatch))
-        img       (create-image width height)
-        g2d       (create-graphics img)]
-
-    (doto g2d
-      (.setBackground Color/WHITE)
-      (.clearRect 0 0 width height))
-
-    (doseq [[c x y] generator]
-      (draw-cell g2d x y (dec cell-size) (color/coerce c)))
-
-    (.dispose g2d)
-    img))
-
 (defn- xrange [start end num-steps]
   (let [diff (- end start)
         step (/ diff num-steps)]

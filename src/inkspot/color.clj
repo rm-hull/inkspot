@@ -13,14 +13,20 @@
   (alpha [c])
   (coerce [c]))
 
+(defn- clamp [n]
+  (cond
+    (< n 0) 0
+    (> n 255) 255
+    :else (int n)))
+
 (defn rgba
   "Convert an IColor to rgba(...) format"
   [color]
   (str
     "rgba("
-    (int (red   color)) ","
-    (int (green color)) ","
-    (int (blue  color)) ","
+    (clamp (red   color)) ","
+    (clamp (green color)) ","
+    (clamp (blue  color)) ","
     (alpha color) ")"))
 
 (defn to-color
@@ -30,10 +36,10 @@
   [color]
   ^{:cljs '(rgba color)}
   (Color.
-    (int (red color))
-    (int (green color))
-    (int (blue color))
-    (int (* (alpha color) 255))))
+    (clamp (red color))
+    (clamp (green color))
+    (clamp (blue color))
+    (clamp (* (alpha color) 255))))
 
 (defn rgb
   "Construct a tuple of RGB (or RGBA) elements from xs, expected values
@@ -46,9 +52,9 @@
    expected values (double) in range 0.0-1.0"
   [{:keys [red green blue scale]
     :or   {red 0.0 green 0.0 blue 0.0 scale 1.0}}]
-  [(int (* 255 red scale))
-   (int (* 255 green scale))
-   (int (* 255 blue scale))])
+  [(clamp (* 255 red scale))
+   (clamp (* 255 green scale))
+   (clamp (* 255 blue scale))])
 
 (defn- color-vec [[_ & xs]]
   (vec

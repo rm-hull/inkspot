@@ -87,17 +87,24 @@ thus:
 
 There are a number of built-in swatches which can be used,
 
+#### Distinct Color swatches
+
 | Function | Color Palette |
 |:---------|:------|
 | color-chart/web-safe-colors | ![Web-safe](https://raw.github.com/rm-hull/inkspot/master/example/palette/web-safe-colors.png) |
-| color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/spectrum.png) |
-| color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart.lindsay/swatch | ![Lindsay](https://raw.github.com/rm-hull/inkspot/master/example/palette/lindsay.png) |
 | color-chart.x11/swatch | ![X11](https://raw.github.com/rm-hull/inkspot/master/example/palette/x11.png) |
+
+#### Interpolated Color swatches
+
+| Function | Color Palette |
+|:---------|:------|
+| color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/spectrum.png) |
+| color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/rainbow.png) |
 | color-chart/gradient :orange :blue 216 | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient1.png) |
 | color-chart/gradient :red :snow 216 | ![gradient2](https://raw.github.com/rm-hull/inkspot/master/example/palette/gradient2.png) |
 | color-chart/heatmap 216 | ![heatmap](https://raw.github.com/rm-hull/inkspot/master/example/palette/heatmap.png) |
-
+| color-chart/cube-helix 216 | ![cube-helix](https://raw.github.com/rm-hull/inkspot/master/example/palette/cube-helix.png) |
 
 These palettes were generated with the following
 [example](https://github.com/rm-hull/inkspot/blob/master/example/example.clj):
@@ -112,18 +119,24 @@ These palettes were generated with the following
            [inkspot.color-chart.x11 :as x11])
   (import [javax.imageio ImageIO]))
 
-(let [charts {
-        :web-safe-colors (map color/coerce cc/web-safe-colors)
-        :spectrum        (cc/spectrum 216)
-        :rainbow         (cc/rainbow 216)
-        :lindsay         (map color/coerce (vals lindsay/swatch))
-        :x11             (map color/coerce (vals x11/swatch))
-        :gradient1       (cc/gradient :orange :blue 216)
-        :gradient2       (cc/gradient :red :snow 216)
-        :heatmap         (cc/heatmap 216)}]
-  (doseq [[k v] charts
+;; Distinct Color Swatches
+(doseq [[k v] {:web-safe-colors (map color/coerce cc/web-safe-colors)
+               :lindsay         (map color/coerce (vals lindsay/swatch))
+               :x11             (map color/coerce (vals x11/swatch))}
         :let [f (io/file (str "example/palette/" (name k) ".png"))]]
-    (ImageIO/write (palette/draw v :g2d-target (palette/bitmap)) "png" f)))
+  (ImageIO/write (palette/draw v :g2d-target palette/bitmap) "png" f))
+
+;; Interpolated Color Swatches
+(doseq [[k v] {:spectrum   (cc/spectrum 216)
+               :rainbow    (cc/rainbow 216)
+               :gradient1  (cc/gradient :orange :blue 216)
+               :gradient2  (cc/gradient :red :snow 216)
+               :heatmap    (cc/heatmap 216)
+               :cube-helix (cc/cube-helix 216)}
+        :let [f (io/file (str "example/palette/" (name k) ".png"))]]
+  (ImageIO/write (palette/draw v :g2d-target palette/bitmap
+                                 :cell-width 2 :cell-height 50
+                                 :cells-per-row 216 :border 0) "png" f))
 ```
 
 ### Mixing Colors
@@ -155,7 +168,7 @@ For example,
 (colors 250) ; upper bound is exclusive
 => nil
 
-(color 43) ; outside range
+(colors 43) ; outside range
 => nil
 ```
 
@@ -193,7 +206,7 @@ returned as vector of 3 elements.
 * ~~RGB, HSV, HSL, YUV,~~ YIQ colorspace conversions
 * ~~X11 Color names~~
 * Monochrome/triadic/tetradic schemes
-* CubeHelix schemes
+* ~~CubeHelix schemes~~
 
 
 ## Known Bugs

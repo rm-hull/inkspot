@@ -1,10 +1,8 @@
 (ns inkspot.color-chart
-  (:require [inkspot.spectrum :as spectrum]
-            [inkspot.color :as color])
-  ^:clj
-  (:import [java.awt.image BufferedImage]
-           [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
-           [java.awt Color Graphics2D RenderingHints BasicStroke GraphicsEnvironment]))
+  (:require
+    [inkspot.spectrum :as spectrum]
+    [inkspot.color :as color]
+    [inkspot.converter :as conv]))
 
 (def web-safe-colors
   "A swatch of web safe colours"
@@ -65,27 +63,27 @@
 (defn spectrum
   "Yields a spectral range from Red (420 THz) to Indigo (750 THz) with
    the given number of colours in between."
-  [num-colors]
+  [steps]
   (let [f1 420 ; Red = 420 THz
         f2 750 ; Indigo = 750 THz
-        step (double (/ (- f2 f1) num-colors))]
+        step (double (/ (- f2 f1) steps))]
     (->>
       (iterate (partial + step) f1)
       (map (comp color/coerce color/gamma spectrum/frequency-color))
-      (take num-colors)
+      (take steps)
       (vec))))
 
 (defn rainbow
   "Yields rainbow colors, although not entirely certain the formulas
    are correct; cannot remember where this came from but dates to early
    2000's..."
-  [num-colors]
+  [steps]
   (letfn [(c [idx]
             { :red   1.0
-              :green (Math/sin (/ (* 3 idx) num-colors))
-              :blue  (double (/ idx num-colors)) })]
+              :green (Math/sin (/ (* 3 idx) steps))
+              :blue  (double (/ idx steps)) })]
     (->>
-      (range num-colors)
+      (range steps)
       (mapv (comp color/coerce color/gamma c)))))
 
 (defn- xrange [start end num-steps]
@@ -98,21 +96,75 @@
 (defn gradient
   "Linear gradient between two colours, with the given number of
    graduations."
-  [from-color to-color num-colors]
+  [from-color to-color steps]
   (let [a (color/coerce from-color)
         b (color/coerce to-color)
-        reds   (xrange (color/red a) (color/red b) num-colors)
-        greens (xrange (color/green a) (color/green b) num-colors)
-        blues  (xrange (color/blue a) (color/blue b) num-colors)
-        alphas (xrange (color/alpha a) (color/alpha b) num-colors)]
+        reds   (xrange (color/red a) (color/red b) steps)
+        greens (xrange (color/green a) (color/green b) steps)
+        blues  (xrange (color/blue a) (color/blue b) steps)
+        alphas (xrange (color/alpha a) (color/alpha b) steps)]
     (map (comp color/coerce vector) reds greens blues alphas)))
 
 (defn heatmap
   "Blackbody radiation (black, through red, orange, yellow to white),
    with the given number of graduations."
-  [num-colors]
+  [steps]
   (->>
     [:black :red :orange :yellow :white]
     (partition 2 1)
-    (map (comp #(conj % (quot num-colors 4)) vec))
+    (map (comp #(conj % (quot steps 4)) vec))
     (mapcat (partial apply gradient))))
+
+(defn cube-helix
+  "Unlike most other color schemes cubehelix was designed by D.A. Green to be
+   monotonically increasing in terms of perceived brightness. Also, when
+   printed on a black and white postscript printer, the scheme results in a
+   greyscale with monotonically increasing brightness. This color scheme is
+   named cubehelix because the r,g,b values produced can be visualised as a
+   squashed helix around the diagonal in the r,g,b color cube.
+
+   For a unit color cube (i.e. 3-D coordinates for r,g,b each in the range 0 to
+   1) the color scheme starts at (r,g,b) = (0,0,0), i.e. black, and finishes at
+   (r,g,b) = (1,1,1), i.e. white. For some fraction *x*, between 0 and 1, the
+   color is the corresponding grey value at that fraction along the black to
+   white diagonal (x,x,x) plus a color element. This color element is
+   calculated in a plane of constant perceived intensity and controlled by the
+   following parameters.
+
+   Optional keywords:
+
+       gamma         gamma factor to emphasise either low intensity values
+                     (gamma < 1), or high intensity values (gamma > 1);
+                     defaults to 1.0.
+
+       start-color   the start color; defaults to 0.5 (i.e. purple).
+
+       rotations     the number of r,g,b rotations in color that are made
+                     from the start to the end of the color scheme; defaults
+                     to -1.5 (i.e. -> B -> G -> R -> B).
+
+       hue           the hue parameter which controls how saturated the
+                     colors are. If this parameter is zero then the color
+                     scheme is purely a greyscale; defaults to 1.0.
+
+   Derived from: https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/_cm.py#L59"
+
+  [steps & {:keys [gamma start-color rotations hue]}]
+  (let [gamma (or gamma 1.0)
+        start (or start-color 0.5)
+        hue   (or hue 1.0)
+        rot   (or rotations -1.5)
+        color (fn [p0 p1]
+                (fn [x]
+                  (let [xg (Math/pow x (or gamma 1.0))
+                        a  (* hue xg (- 1 xg) 0.5)
+                        phi (* 2 Math/PI (+ (/ start 3) (* rot x)))]
+                    (+ xg (* a (+ (* p0 (Math/cos phi)) (* p1 (Math/sin phi))))))))
+        red   (color -0.14861 1.78277)
+        green (color -0.29227 -0.90649)
+        blue  (color 1.97294, 0.0)
+        rgb   (fn [x]
+                (color/coerce
+                  (mapv (partial * 255) [(red x) (green x) (blue x)])))]
+
+    (mapv rgb (xrange 0 1 steps))))

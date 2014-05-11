@@ -59,7 +59,7 @@
             s (if (< l 0.5)
                 (/ d (+ max-val min-val))
                 (/ d (- 2.0 max-val min-val)))
-            [dr dg db] (map #(/ (- max-val %) d) [r g b])
+            [dr dg db] (mapv #(/ (- max-val %) d) [r g b])
             h (condp = max-val
                 r (- db dg)
                 g (- (+ 2.0 dr) db)

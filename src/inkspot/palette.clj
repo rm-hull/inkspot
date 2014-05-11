@@ -1,16 +1,11 @@
 (ns inkspot.palette
+  (:require [inkspot.color :as color])
   ^:clj
-  (:require
-    [inkspot.color :as color]
-    [inkspot.color-chart :as cc])
-  (:import
-    [java.io StringWriter]
-    [org.apache.batik.dom GenericDOMImplementation]
-    [org.apache.batik.svggen SVGGraphics2D]
-    [java.awt.image BufferedImage]
-    [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
-    [java.awt Color Paint BasicStroke Rectangle Graphics2D
-              RenderingHints BasicStroke GraphicsEnvironment]))
+  (:import (java.awt Color Graphics2D GraphicsEnvironment RenderingHints)
+           (java.awt.image BufferedImage)
+           (java.io StringWriter)
+           (org.apache.batik.dom GenericDOMImplementation)
+           (org.apache.batik.svggen SVGGraphics2D)))
 
 (defprotocol IGraphics2DTarget
   (create-context [this width height])
@@ -57,7 +52,8 @@
                     (iterate inc 0)
                     (map pos)
                     (map cons color-swatch))
-        g2d       (create-context g2d-target width height)]
+        target    (g2d-target)
+        g2d       (create-context target width height)]
 
     (doto g2d
       (.setBackground Color/WHITE)
@@ -68,7 +64,7 @@
       (doseq [[c x y] generator]
         (draw-cell g2d x y w h (color/coerce c))))
 
-    (close g2d-target)))
+    (close target)))
 
 ^:clj
 (defn bitmap []
@@ -94,3 +90,4 @@
         (with-open [out (StringWriter.)]
           (.stream svg-generator out true)
           (.toString out))))))
+

@@ -156,7 +156,7 @@
         rot   (or rotations -1.5)
         color (fn [p0 p1]
                 (fn [x]
-                  (let [xg (Math/pow x (or gamma 1.0))
+                  (let [xg (Math/pow x gamma)
                         a  (* hue xg (- 1 xg) 0.5)
                         phi (* 2 Math/PI (+ (/ start 3) (* rot x)))]
                     (+ xg (* a (+ (* p0 (Math/cos phi)) (* p1 (Math/sin phi))))))))

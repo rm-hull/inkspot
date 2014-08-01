@@ -6,7 +6,7 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [org.clojure/clojure "1.6.0"]
-    [org.clojure/clojurescript "0.0-2202"]
+    [org.clojure/clojurescript "0.0-2277"]
     [org.apache.xmlgraphics/batik-gvt "1.7"]
     [org.apache.xmlgraphics/batik-svggen "1.7"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
@@ -14,10 +14,10 @@
   :plugins [
     [codox "0.8.0"]
     [lein-cljsbuild "1.0.3"]
-    [com.birdseye-sw/lein-dalap "0.1.0"]]
+    [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
     leiningen.dalap
-    ;leiningen.cljsbuild
+    leiningen.cljsbuild
     ]
   :source-paths ["src"]
   :cljsbuild {
@@ -50,5 +50,5 @@
     :output-dir "doc/api"
     :src-dir-uri "http://github.com/rm-hull/inkspot/blob/master/"
     :src-linenum-anchor-prefix "L" }
-  :min-lein-version "2.3.4"
+  :min-lein-version "2.4.2"
   :global-vars {*warn-on-reflection* true})

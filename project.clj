@@ -6,13 +6,14 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [org.clojure/clojure "1.6.0"]
-    [org.clojure/clojurescript "0.0-2277"]
+    [org.clojure/clojurescript "0.0-2322"]
     [org.apache.xmlgraphics/batik-gvt "1.7"]
     [org.apache.xmlgraphics/batik-svggen "1.7"]
+    [com.cognitect/transit-cljs "0.8.188"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
-    [codox "0.8.0"]
+    [codox "0.8.10"]
     [lein-cljsbuild "1.0.3"]
     [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
@@ -20,6 +21,7 @@
     leiningen.cljsbuild
     ]
   :source-paths ["src"]
+  :jar-exclusions [#"(?:^|/).git"]
   :cljsbuild {
     :repl-listen-port 9000
     :repl-launch-commands

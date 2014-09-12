@@ -4,7 +4,7 @@ A small Clojure/ClojureScript library for creating colour swatches and convertin
 
 ### Pre-requisites
 
-You will need [Leiningen](https://github.com/technomancy/leiningen) 2.3.4 or above installed.
+You will need [Leiningen](https://github.com/technomancy/leiningen) 2.4.2 or above installed.
 
 ### Building
 

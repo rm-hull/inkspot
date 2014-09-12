@@ -7,5 +7,6 @@
   ["src/inkspot/converter.clj" "target/generated-src/inkspot/converter.cljs"] []
   ["src/inkspot/palette.clj" "target/generated-src/inkspot/palette.cljs"] []
   ["src/inkspot/spectrum.clj" "target/generated-src/inkspot/spectrum.cljs"] []
+  ["src/inkspot/util.clj" "target/generated-src/inkspot/util.cljs"] []
 }
 

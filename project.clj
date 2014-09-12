@@ -6,6 +6,7 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [org.clojure/clojure "1.6.0"]
+    [org.clojure/data.json "0.2.5"]
     [org.clojure/clojurescript "0.0-2322"]
     [org.apache.xmlgraphics/batik-gvt "1.7"]
     [org.apache.xmlgraphics/batik-svggen "1.7"]

@@ -1,8 +1,20 @@
+^{:cljs
+  (ns inkspot.color-chart
+  (:require
+    [inkspot.spectrum :as spectrum]
+    [inkspot.color :as color]
+    [inkspot.converter :as conv]
+    [inkspot.util :as util])
+  (:require-macros
+    [inkspot.macros :as macros]))
+  }
 (ns inkspot.color-chart
   (:require
     [inkspot.spectrum :as spectrum]
     [inkspot.color :as color]
-    [inkspot.converter :as conv]))
+    [inkspot.converter :as conv]
+    [inkspot.macros :as macros]
+    [inkspot.util :as util]))
 
 (def web-safe-colors
   "A swatch of web safe colours"
@@ -168,3 +180,32 @@
                   (mapv (partial * 255) [(red x) (green x) (blue x)])))]
 
     (mapv rgb (xrange 0 1 steps))))
+
+
+(def ui-gradient
+  "Loads gradients from a JSON source as per format here:
+   https://github.com/Ghosh/uiGradients/blob/master/gradients.json
+
+   Valid gradient names (may be specified as strings or keywords):
+
+       :a-lost-memory :almost :amethyst :aqua-marine :aqualicious :army
+       :ash :aubergine :autumn :behongo :bloody-mary :blurry-beach :bora-bora
+       :bourbon :calm-darya :candy :cheer-up-emo-kid :cherry :cherryblossoms
+       :clouds :dance-to-forget :day-tripper :dirty-fog :dracula :earthly
+       :electric-violet :emerald-water :facebook-messenger :forever-lost
+       :frozen :horizon :influenza :jonquil :juicy-orange :kashmir :kyoto
+       :lemon-twist :man-of-steel :mango-pulp :mantle :miaka :midnight-city
+       :mirage :misty-meadow :mojito :moonrise :moor :moss :mystic :namn
+       :neon-life :opa :parklife :peach :petrichor :pinky :pinot-noir
+       :purple-paradise :red-mist :reef :rose-water :sea-blizz :sea-weed
+       :shadow-night :shore :shrimpy :shroom-haze :sirius-tamed :soundcloud
+       :starfall :steel-gray :stellar :sunrise :teal-love :the-strain :titanium
+       :vasily :venice-blue :virgin :winter
+
+   nil is returned if a gradient name is not found."
+  (let [gradients (macros/ui-gradients "uiGradients/gradients.json")]
+    (fn [name steps]
+      (let [k (util/name->kword name)
+            [col1 col2] (k gradients)]
+        (when (and col1 col2)
+          (gradient col1 col2 steps))))))

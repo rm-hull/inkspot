@@ -106,6 +106,7 @@ There are a number of built-in swatches which can be used,
 |:---------|:------|
 | color-chart/spectrum | ![Spectrum](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/spectrum.png) |
 | color-chart/rainbow | ![Rainbow](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/rainbow.png) |
+| color-chart/hue | ![Hue](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/hue.png) |
 | color-chart/gradient :orange :blue 216 | ![gradient1](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/gradient1.png) |
 | color-chart/gradient :red :snow 216 | ![gradient2](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/gradient2.png) |
 | color-chart/heatmap 216 | ![heatmap](https://raw.github.com/rm-hull/inkspot/master/example/palette/interpolated/heatmap.png) |

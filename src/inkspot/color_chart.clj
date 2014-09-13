@@ -98,12 +98,18 @@
       (range steps)
       (mapv (comp color/coerce color/gamma c)))))
 
+
 (defn- xrange [start end num-steps]
   (let [diff (- end start)
         step (/ diff num-steps)]
     (if (zero? diff)
       (repeat num-steps start)
       (range start end step))))
+
+(defn hue [steps]
+  (mapv
+    #(color/coerce (conv/hsv->rgb [% 1 1]))
+    (xrange 0 360 steps)))
 
 (defn gradient
   "Linear gradient between two colours, with the given number of
@@ -115,7 +121,7 @@
         greens (xrange (color/green a) (color/green b) steps)
         blues  (xrange (color/blue a) (color/blue b) steps)
         alphas (xrange (color/alpha a) (color/alpha b) steps)]
-    (map (comp color/coerce vector) reds greens blues alphas)))
+    (mapv (comp color/coerce vector) reds greens blues alphas)))
 
 (defn heatmap
   "Blackbody radiation (black, through red, orange, yellow to white),
@@ -125,7 +131,8 @@
     [:black :red :orange :yellow :white]
     (partition 2 1)
     (map (comp #(conj % (quot steps 4)) vec))
-    (mapcat (partial apply gradient))))
+    (mapcat (partial apply gradient))
+    (vec)))
 
 (defn cube-helix
   "Unlike most other color schemes cubehelix was designed by D.A. Green to be

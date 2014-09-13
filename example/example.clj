@@ -20,6 +20,7 @@
 ;; Interpolated Color Swatches
 (doseq [[k v] {:spectrum   (cc/spectrum 216)
                :rainbow    (cc/rainbow 216)
+               :hue        (cc/hue 216)
                :gradient1  (cc/gradient :orange :blue 216)
                :gradient2  (cc/gradient :red :snow 216)
                :heatmap    (cc/heatmap 216)

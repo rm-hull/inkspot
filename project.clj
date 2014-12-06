@@ -7,10 +7,10 @@
   :dependencies [
     [org.clojure/clojure "1.6.0"]
     [org.clojure/data.json "0.2.5"]
-    [org.clojure/clojurescript "0.0-2322"]
+    [org.clojure/clojurescript "0.0-2411"]
     [org.apache.xmlgraphics/batik-gvt "1.7"]
     [org.apache.xmlgraphics/batik-svggen "1.7"]
-    [com.cognitect/transit-cljs "0.8.188"]
+    [com.cognitect/transit-cljs "0.8.192"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [

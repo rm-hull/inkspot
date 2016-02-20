@@ -1,4 +1,4 @@
-# Inkspot [![Build Status](https://travis-ci.org/rm-hull/inkspot.svg?branch=master)](http://travis-ci.org/rm-hull/inkspot)
+# Inkspot [![Build Status](https://travis-ci.org/rm-hull/inkspot.svg?branch=master)](http://travis-ci.org/rm-hull/inkspot) [![Dependencies Status](https://jarkeeper.com/rm-hull/inkspot/status.svg)](https://jarkeeper.com/rm-hull/inkspot) [![Downloads](https://jarkeeper.com/rm-hull/inkspot/downloads.svg)](https://jarkeeper.com/rm-hull/inkspot)
 A small Clojure/ClojureScript library for creating colour swatches and converting between colorspaces.
 
 ### Pre-requisites

@@ -1,4 +1,4 @@
-(defproject rm-hull/inkspot "0.0.1-SNAPSHOT"
+(defproject rm-hull/inkspot "0.1.0"
   :description "A small Clojure/ClojureScript library for creating colour swatches"
   :url "https://github.com/rm-hull/inkspot"
   :license {

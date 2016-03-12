@@ -1,21 +1,21 @@
-(defproject rm-hull/inkspot "0.1.0"
+(defproject rm-hull/inkspot "0.2.0"
   :description "A small Clojure/ClojureScript library for creating colour swatches"
   :url "https://github.com/rm-hull/inkspot"
   :license {
     :name "The MIT License (MIT)"
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
-    [org.clojure/clojure "1.6.0"]
-    [org.clojure/data.json "0.2.5"]
-    [org.clojure/clojurescript "0.0-2411"]
-    [org.apache.xmlgraphics/batik-gvt "1.7"]
-    [org.apache.xmlgraphics/batik-svggen "1.7"]
-    [com.cognitect/transit-cljs "0.8.192"]
+    [org.clojure/clojure "1.8.0"]
+    [org.clojure/data.json "0.2.6"]
+    [org.clojure/clojurescript "1.7.228"]
+    [org.apache.xmlgraphics/batik-gvt "1.8"]
+    [org.apache.xmlgraphics/batik-svggen "1.8"]
+    [com.cognitect/transit-cljs "0.8.237"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
-    [codox "0.8.10"]
-    [lein-cljsbuild "1.0.3"]
+    [codox "0.9.4"]
+    [lein-cljsbuild "1.1.3"]
     [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
     leiningen.dalap

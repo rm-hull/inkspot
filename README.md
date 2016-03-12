@@ -25,7 +25,7 @@ There is version hosted at [Clojars](https://clojars.org/rm-hull/inkspot).
 For leiningen include a dependency:
 
 ```clojure
-[rm-hull/inkspot "0.1.0"]
+[rm-hull/inkspot "0.2.0"]
 ```
 
 For maven-based projects, add the following to your `pom.xml`:
@@ -34,7 +34,7 @@ For maven-based projects, add the following to your `pom.xml`:
 <dependency>
   <groupId>rm-hull</groupId>
   <artifactId>inkspot</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 

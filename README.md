@@ -7,13 +7,6 @@ You will need [Leiningen](https://github.com/technomancy/leiningen) 2.4.2 or abo
 
 ### Building
 
-This repo now incorporates [uiGradients](https://github.com/Ghosh/uiGradients)
-as a submodule, so run the following after cloning:
-
-    $ cd  inkspot
-    $ git submodule init
-    $ git submodule update
-
 To build and install the library locally, run:
 
     $ lein test
@@ -25,7 +18,7 @@ There is version hosted at [Clojars](https://clojars.org/rm-hull/inkspot).
 For leiningen include a dependency:
 
 ```clojure
-[rm-hull/inkspot "0.2.0"]
+[rm-hull/inkspot "0.2.1"]
 ```
 
 For maven-based projects, add the following to your `pom.xml`:
@@ -34,7 +27,7 @@ For maven-based projects, add the following to your `pom.xml`:
 <dependency>
   <groupId>rm-hull</groupId>
   <artifactId>inkspot</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
 </dependency>
 ```
 
@@ -328,11 +321,15 @@ returned as vector of 3 elements.
 * http://www.mrao.cam.ac.uk/~dag/CUBEHELIX/
 * https://github.com/Ghosh/uiGradients
 
+## Attribution
+
+This repo incorporates `gradients.json` from [uiGradients](https://github.com/Ghosh/uiGradients).
+
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Richard Hull
+Copyright (c) 2016 Richard Hull
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

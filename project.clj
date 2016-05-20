@@ -1,4 +1,4 @@
-(defproject rm-hull/inkspot "0.2.1"
+(defproject rm-hull/inkspot "0.2.2-SNAPSHOT"
   :description "A small Clojure/ClojureScript library for creating colour swatches"
   :url "https://github.com/rm-hull/inkspot"
   :license {
@@ -7,10 +7,9 @@
   :dependencies [
     [org.clojure/clojure "1.8.0"]
     [org.clojure/data.json "0.2.6"]
-    [org.clojure/clojurescript "1.7.228"]
+    [org.clojure/clojurescript "1.8.51"]
     [org.apache.xmlgraphics/batik-gvt "1.8"]
     [org.apache.xmlgraphics/batik-svggen "1.8"]
-    [com.cognitect/transit-cljs "0.8.237"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
@@ -19,8 +18,7 @@
     [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
     leiningen.dalap
-    leiningen.cljsbuild
-    ]
+    leiningen.cljsbuild]
   :source-paths ["src"]
   :jar-exclusions [#"(?:^|/).git"]
   :cljsbuild {
@@ -53,5 +51,12 @@
     :output-dir "doc/api"
     :src-dir-uri "http://github.com/rm-hull/inkspot/blob/master/"
     :src-linenum-anchor-prefix "L" }
-  :min-lein-version "2.4.2"
-  :global-vars {*warn-on-reflection* true})
+  :min-lein-version "2.6.1"
+  :profiles {
+    :dev {
+      :global-vars {*warn-on-reflection* true}
+      :dependencies [
+        [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
+      :plugins [
+        [lein-cloverage "1.0.6"]]}})
+

@@ -1,4 +1,9 @@
-# Inkspot [![Build Status](https://travis-ci.org/rm-hull/inkspot.svg?branch=master)](http://travis-ci.org/rm-hull/inkspot) [![Dependencies Status](https://jarkeeper.com/rm-hull/inkspot/status.svg)](https://jarkeeper.com/rm-hull/inkspot) [![Downloads](https://jarkeeper.com/rm-hull/inkspot/downloads.svg)](https://jarkeeper.com/rm-hull/inkspot) [![Clojars Project](https://img.shields.io/clojars/v/rm-hull/inkspot.svg)](https://clojars.org/rm-hull/inkspot)
+# Inkspot
+[![Build Status](https://travis-ci.org/rm-hull/inkspot.svg?branch=master)](http://travis-ci.org/rm-hull/inkspot)
+[![Dependencies Status](https://jarkeeper.com/rm-hull/inkspot/status.svg)](https://jarkeeper.com/rm-hull/inkspot)
+[![Downloads](https://jarkeeper.com/rm-hull/inkspot/downloads.svg)](https://jarkeeper.com/rm-hull/inkspot)
+[![Clojars Project](https://img.shields.io/clojars/v/rm-hull/inkspot.svg)](https://clojars.org/rm-hull/inkspot)
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?maxAge=2592000)]()
 
 A small Clojure/ClojureScript library for creating colour swatches and converting between colorspaces.
 

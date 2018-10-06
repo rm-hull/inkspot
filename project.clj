@@ -5,16 +5,16 @@
     :name "The MIT License (MIT)"
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
-    [org.clojure/clojure "1.8.0"]
+    [org.clojure/clojure "1.9.0"]
     [org.clojure/data.json "0.2.6"]
-    [org.clojure/clojurescript "1.8.51"]
-    [org.apache.xmlgraphics/batik-gvt "1.8"]
-    [org.apache.xmlgraphics/batik-svggen "1.8"]
+    [org.clojure/clojurescript "1.10.339"]
+    [org.apache.xmlgraphics/batik-gvt "1.10"]
+    [org.apache.xmlgraphics/batik-svggen "1.10"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
   :scm {:url "git@github.com:rm-hull/inkspot.git"}
   :plugins [
-    [codox "0.9.4"]
-    [lein-cljsbuild "1.1.3"]
+    [lein-codox "0.10.5"]
+    [lein-cljsbuild "1.1.7"]
     [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
     leiningen.dalap
@@ -33,7 +33,7 @@
         :jar true
         :compiler {
           :output-to "target/inkspot.js"
-          :source-map "target/inkspot.map"
+          :source-map true
           :static-fns true
           ;:optimizations :advanced
           :pretty-print true }}
@@ -42,21 +42,21 @@
         :incremental? true
         :compiler {
           :output-to "target/unit-test.js"
-          :source-map "target/unit-test.map"
+          :source-map true
           :static-fns true
-          :optimizations :whitespace
+          ;:optimizations :whitespace
           :pretty-print true }}}}
   :codox {
     :sources ["src"]
     :output-dir "doc/api"
     :src-dir-uri "http://github.com/rm-hull/inkspot/blob/master/"
     :src-linenum-anchor-prefix "L" }
-  :min-lein-version "2.6.1"
+  :min-lein-version "2.8.1"
   :profiles {
     :dev {
       :global-vars {*warn-on-reflection* true}
       :dependencies [
         [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
       :plugins [
-        [lein-cloverage "1.0.6"]]}})
+        [lein-cloverage "1.0.13"]]}})
 

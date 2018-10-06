@@ -1,6 +1,5 @@
 (ns inkspot.palette
   (:require [inkspot.color :as color])
-  ^:clj
   (:import (java.awt Color Graphics2D GraphicsEnvironment RenderingHints)
            (java.awt.image BufferedImage)
            (java.io StringWriter)
@@ -11,7 +10,6 @@
   (create-context [this width height])
   (close [this]))
 
-^:clj
 (defn- ^BufferedImage create-image [w h]
   (if (GraphicsEnvironment/isHeadless)
     (BufferedImage. w h BufferedImage/TYPE_INT_ARGB)
@@ -21,7 +19,7 @@
        (GraphicsEnvironment/getLocalGraphicsEnvironment)))
      w h)))
 
-^:clj
+
 (defn- ^Graphics2D create-graphics [^BufferedImage img]
   (let [g2d (.createGraphics img)]
     (doto g2d
@@ -30,14 +28,12 @@
       (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY))
     g2d))
 
-^:clj
 (defn- draw-cell [^Graphics2D g2d x y w h color]
   (doto g2d
     (.setColor color)
     (.fillRect x y w h))
   g2d)
 
-^:clj
 (defn draw
   [color-swatch & {:keys [g2d-target cell-width cell-height cells-per-row border]}]
   (let [cell-width (or cell-width 10)
@@ -66,7 +62,6 @@
 
     (close target)))
 
-^:clj
 (defn bitmap []
   (let [img (atom nil)]
     (reify
@@ -77,7 +72,6 @@
       (close [this]
         @img))))
 
-^:clj
 (defn svg []
   (let [dom-impl (GenericDOMImplementation/getDOMImplementation)
         document (.createDocument dom-impl nil "svg" nil)
@@ -90,4 +84,3 @@
         (with-open [out (StringWriter.)]
           (.stream svg-generator out true)
           (.toString out))))))
-

@@ -11,6 +11,7 @@ before_script:
   - eclint check $(git ls-files)
   - lein install
   - lein cljfmt check
+  - lein clean
 script:
   - lein test
 jdk:

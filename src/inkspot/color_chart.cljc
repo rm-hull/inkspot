@@ -1,19 +1,11 @@
-^{:cljs
-  (ns inkspot.color-chart
-    (:require
-     [inkspot.spectrum :as spectrum]
-     [inkspot.color :as color]
-     [inkspot.converter :as conv]
-     [inkspot.util :as util])
-    (:require-macros
-     [inkspot.macros :as macros]))}
 (ns inkspot.color-chart
   (:require
    [inkspot.spectrum :as spectrum]
    [inkspot.color :as color]
    [inkspot.converter :as conv]
-   [inkspot.macros :as macros]
-   [inkspot.util :as util]))
+   [inkspot.util :as util])
+  #?(:cljs (:require-macros [inkspot.macros :as macros])
+     :clj [inkspot.macros :as macros]))
 
 (def web-safe-colors
   "A swatch of web safe colours"

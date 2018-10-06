@@ -6,8 +6,8 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [org.clojure/clojure "1.9.0"]
-    [org.clojure/data.json "0.2.6"]
     [org.clojure/clojurescript "1.10.339"]
+    [org.clojure/data.json "0.2.6"]
     [org.apache.xmlgraphics/batik-gvt "1.10"]
     [org.apache.xmlgraphics/batik-svggen "1.10"]
     [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
@@ -15,10 +15,8 @@
   :plugins [
     [lein-codox "0.10.5"]
     [lein-cljsbuild "1.1.7"]
-    [lein-cljfmt "0.6.1"]
-    [com.birdseye-sw/lein-dalap "0.1.1"]]
+    [lein-cljfmt "0.6.1"]]
   :hooks [
-    leiningen.dalap
     leiningen.cljsbuild]
   :source-paths ["src"]
   :jar-exclusions [#"(?:^|/).git"]
@@ -27,19 +25,19 @@
     :repl-launch-commands
       {"firefox" ["firefox"]
        "firefox-demo" ["firefox" "doc/gallery/cljs-demo/gallery.html"]}
-    :test-commands  {"phantomjs"  ["phantomjs" "target/unit-test.js"]}
+    :test-commands {"phantomjs" ["phantomjs" "target/unit-test.js"]}
     :builds {
       :main {
-        :source-paths ["target/generated-src"]
+        :source-paths ["src"]
         :jar true
         :compiler {
           :output-to "target/inkspot.js"
           :source-map "target/inkspot.map"
           :static-fns true
           :optimizations :advanced
-          :pretty-print true }}
+          :pretty-print false }}
       :test {
-        :source-paths ["target/generated-src" "test"]
+        :source-paths ["src" "test"]
         :incremental? true
         :compiler {
           :output-to "target/unit-test.js"
@@ -60,4 +58,3 @@
         [rm-hull/cljs-test "0.0.8-SNAPSHOT"]]
       :plugins [
         [lein-cloverage "1.0.13"]]}})
-

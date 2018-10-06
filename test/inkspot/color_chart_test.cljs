@@ -10,3 +10,4 @@
   (let [[a b] (ui-gradient :moss 2)]
     (is= (coerce a) "rgba(19,78,94,1)")
     (is= (coerce b) "rgba(66,128,111,1)")))
+

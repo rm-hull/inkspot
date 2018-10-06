@@ -3,8 +3,7 @@
             [inkspot.common :refer [parse-int parse-double]]
             [inkspot.color-chart.lindsay :as lindsay]
             [inkspot.color-chart.x11 :as x11])
-  ^:clj
-  (:import [java.awt Color]))
+  #?(:clj (:import [java.awt Color])))
 
 (defprotocol IColor
   (red [c])
@@ -34,12 +33,12 @@
    rgb values should be an integer in the 0-255 range,
    whilst alpha channel is a double in the range 0.0 - 1.0"
   [color]
-  ^{:cljs '(rgba color)}
-  (Color.
-   (clamp (red color))
-   (clamp (green color))
-   (clamp (blue color))
-   (clamp (* (alpha color) 255))))
+  #?(:cljs (rgba color)
+     :clj (Color.
+           ^int (clamp (red color))
+           ^int (clamp (green color))
+           ^int (clamp (blue color))
+           ^int (clamp (* (alpha color) 255)))))
 
 (defn rgb
   "Construct a tuple of RGB (or RGBA) elements from xs, expected values
@@ -92,7 +91,7 @@
      (lindsay/swatch k)
      (x11/swatch k))))
 
-(extend-type ^{:cljs cljs.core.PersistentVector} clojure.lang.PersistentVector
+(extend-type #?(:cljs cljs.core.PersistentVector :clj clojure.lang.PersistentVector)
   IColor
   (red    [[r _ _ _]] r)
   (green  [[_ g _ _]] g)
@@ -100,7 +99,7 @@
   (alpha  [[_ _ _ a]] (or a 1.0))
   (coerce [arr] (to-color arr)))
 
-(extend-type java.lang.Long
+(extend-type #?(:cljs number :clj java.lang.Long)
   IColor
   (red    [n] (red (int->color n)))
   (green  [n] (green (int->color n)))
@@ -108,7 +107,7 @@
   (alpha  [n] (alpha (int->color n)))
   (coerce [n] (to-color (int->color n))))
 
-(extend-type java.lang.String
+(extend-type #?(:cljs string :clj java.lang.String)
   IColor
   (red    [s] (red (string->color s)))
   (green  [s] (green (string->color s)))
@@ -124,7 +123,7 @@
   (alpha  [s] nil)
   (coerce [s] nil))
 
-(extend-type ^{:cljs cljs.core.Keyword} clojure.lang.Keyword
+(extend-type #?(:cljs cljs.core.Keyword :clj clojure.lang.Keyword)
   IColor
   (red    [s] (red (keyword->color s)))
   (green  [s] (green (keyword->color s)))
@@ -132,22 +131,21 @@
   (alpha  [s] (alpha (keyword->color s)))
   (coerce [s] (to-color (keyword->color s))))
 
-^:clj
-(extend-type java.awt.Color
-  IColor
-  (red    [c] (.getRed c))
-  (green  [c] (.getGreen c))
-  (blue   [c] (.getBlue c))
-  (alpha  [c] (/ (.getAlpha c) 255.0))
-  (coerce [c] c))
+#?(:clj (extend-type java.awt.Color
+          IColor
+          (red    [c] (.getRed c))
+          (green  [c] (.getGreen c))
+          (blue   [c] (.getBlue c))
+          (alpha  [c] (/ (.getAlpha c) 255.0))
+          (coerce [c] c)))
 
-#_({:cljs
-    (extend-type array
-      IColor
-      (red   [[r _ _ _]] r)
-      (green [[_ g _ _]] g)
-      (blue  [[_ _ b _]] b)
-      (alpha [[_ _ _ a]] (or a 1.0)))})
+#?(:cljs (extend-type array
+           IColor
+           (red   [[r _ _ _]] r)
+           (green [[_ g _ _]] g)
+           (blue  [[_ _ b _]] b)
+           (alpha [[_ _ _ a]] (or a 1.0))
+           (coerce [arr] (to-color arr))))
 
 (defn adjust-color [style & [color]]
   (let [color (or color "rgb(255,255,255)")

@@ -15,6 +15,7 @@
   :plugins [
     [lein-codox "0.10.5"]
     [lein-cljsbuild "1.1.7"]
+    [lein-cljfmt "0.6.1"]
     [com.birdseye-sw/lein-dalap "0.1.1"]]
   :hooks [
     leiningen.dalap

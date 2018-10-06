@@ -6,9 +6,9 @@
    across Clojure and ClojureScript"
   ([s] (parse-int s 10))
   ([s r]
-  (when-not (empty? s)
-    ^{:cljs (js/parseInt s r)}
-    (Integer/parseInt s r))))
+   (when-not (empty? s)
+     ^{:cljs (js/parseInt s r)}
+     (Integer/parseInt s r))))
 
 (defn parse-double [s]
   "Wrapper around floating point number parsing, but

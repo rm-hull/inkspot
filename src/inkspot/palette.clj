@@ -16,10 +16,10 @@
   (if (GraphicsEnvironment/isHeadless)
     (BufferedImage. w h BufferedImage/TYPE_INT_ARGB)
     (.createCompatibleImage
-       (.getDefaultConfiguration
-         (.getDefaultScreenDevice
-           (GraphicsEnvironment/getLocalGraphicsEnvironment)))
-       w h)))
+     (.getDefaultConfiguration
+      (.getDefaultScreenDevice
+       (GraphicsEnvironment/getLocalGraphicsEnvironment)))
+     w h)))
 
 ^:clj
 (defn- ^Graphics2D create-graphics [^BufferedImage img]
@@ -49,9 +49,9 @@
         pos       (fn [i] [(* cell-width (mod i cells-per-row))
                            (* cell-height (quot i cells-per-row))])
         generator (->>
-                    (iterate inc 0)
-                    (map pos)
-                    (map cons color-swatch))
+                   (iterate inc 0)
+                   (map pos)
+                   (map cons color-swatch))
         target    (g2d-target)
         g2d       (create-context target width height)]
 

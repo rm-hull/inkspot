@@ -23,11 +23,11 @@
   "Convert an IColor to rgba(...) format"
   [color]
   (str
-    "rgba("
-    (clamp (red   color)) ","
-    (clamp (green color)) ","
-    (clamp (blue  color)) ","
-    (alpha color) ")"))
+   "rgba("
+   (clamp (red   color)) ","
+   (clamp (green color)) ","
+   (clamp (blue  color)) ","
+   (alpha color) ")"))
 
 (defn to-color
   "Converts an IColor to a native color representation.
@@ -36,10 +36,10 @@
   [color]
   ^{:cljs '(rgba color)}
   (Color.
-    (clamp (red color))
-    (clamp (green color))
-    (clamp (blue color))
-    (clamp (* (alpha color) 255))))
+   (clamp (red color))
+   (clamp (green color))
+   (clamp (blue color))
+   (clamp (* (alpha color) 255))))
 
 (defn rgb
   "Construct a tuple of RGB (or RGBA) elements from xs, expected values
@@ -58,11 +58,11 @@
 
 (defn- color-vec [[_ & xs]]
   (vec
-    (case (count xs)
-      1 (->> xs first seq (partition 2) (map (comp #(parse-int % 16) (partial apply str))) vec)
-      3 (rgb xs)
-      4 (concat (rgb (take 3 xs))
-          [(-> (last xs) string/trim parse-double)]))))
+   (case (count xs)
+     1 (->> xs first seq (partition 2) (map (comp #(parse-int % 16) (partial apply str))) vec)
+     3 (rgb xs)
+     4 (concat (rgb (take 3 xs))
+               [(-> (last xs) string/trim parse-double)]))))
 
 (defn int->color
   "Construct a tuple of RGB elements from an integer."
@@ -72,8 +72,8 @@
     (if (= (count ret) 3)
       (vec ret)
       (recur
-        (cons (mod n 256) ret)
-        (quot n 256)))))
+       (cons (mod n 256) ret)
+       (quot n 256)))))
 
 (defn string->color
   "Construct a tuple of RGB elements from a string."
@@ -89,8 +89,8 @@
   [k]
   (let [k (-> k name clojure.string/lower-case keyword)]
     (or
-      (lindsay/swatch k)
-      (x11/swatch k))))
+     (lindsay/swatch k)
+     (x11/swatch k))))
 
 (extend-type ^{:cljs cljs.core.PersistentVector} clojure.lang.PersistentVector
   IColor
@@ -142,12 +142,12 @@
   (coerce [c] c))
 
 #_({:cljs
-(extend-type array
-  IColor
-  (red   [[r _ _ _]] r)
-  (green [[_ g _ _]] g)
-  (blue  [[_ _ b _]] b)
-  (alpha [[_ _ _ a]] (or a 1.0)))})
+    (extend-type array
+      IColor
+      (red   [[r _ _ _]] r)
+      (green [[_ g _ _]] g)
+      (blue  [[_ _ b _]] b)
+      (alpha [[_ _ _ a]] (or a 1.0)))})
 
 (defn adjust-color [style & [color]]
   (let [color (or color "rgb(255,255,255)")
@@ -156,19 +156,19 @@
       (to-color [(red color) (green color) (blue color) alpha]))))
 
 (defn scale [color weight] ; is this the same as brightness?
-  [ (* weight (red color))
-    (* weight (green color))
-    (* weight (blue color))
-    (alpha color)])
+  [(* weight (red color))
+   (* weight (green color))
+   (* weight (blue color))
+   (alpha color)])
 
 (defn mix
   "Mix the colors in RGB space in the proportions given, else if
    none given, in equal measure."
   ([colors]
-    (mix colors (repeat (count colors) 1)))
+   (mix colors (repeat (count colors) 1)))
   ([colors proportions]
-    (let [cnt (reduce + proportions)
-          sum (->>
-                (map scale colors proportions)
-                (reduce (partial map +)))]
-      (coerce (mapv #(int (/ % cnt)) sum)))))
+   (let [cnt (reduce + proportions)
+         sum (->>
+              (map scale colors proportions)
+              (reduce (partial map +)))]
+     (coerce (mapv #(int (/ % cnt)) sum)))))

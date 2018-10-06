@@ -38,13 +38,13 @@
           n (* v (- 1.0 (* s f)))
           a (or a 1.0)]
       (coerce
-        (condp = i
-          0 [v n m a]
-          1 [n v m a]
-          2 [m v n a]
-          3 [m n v a]
-          4 [n m v a]
-            [v m n a])))))
+       (condp = i
+         0 [v n m a]
+         1 [n v m a]
+         2 [m v n a]
+         3 [m n v a]
+         4 [n m v a]
+         [v m n a])))))
 
 (defn rgb->hsl
   "RGB to HSL (Hue, Saturation and Luminosity) conversion."

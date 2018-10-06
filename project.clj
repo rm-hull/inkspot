@@ -34,18 +34,18 @@
         :jar true
         :compiler {
           :output-to "target/inkspot.js"
-          :source-map true
+          :source-map "target/inkspot.map"
           :static-fns true
-          ;:optimizations :advanced
+          :optimizations :advanced
           :pretty-print true }}
       :test {
         :source-paths ["target/generated-src" "test"]
         :incremental? true
         :compiler {
           :output-to "target/unit-test.js"
-          :source-map true
+          :source-map "target/unit-test.map"
           :static-fns true
-          ;:optimizations :whitespace
+          :optimizations :whitespace
           :pretty-print true }}}}
   :codox {
     :sources ["src"]
